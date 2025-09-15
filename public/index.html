@@ -99,7 +99,7 @@
     <section class="hero" id="about">
       <div class="left">
         <h2>Welcome to ratbin</h2>
-        <h1>👥 Active Users: <span id="count">Loading...</span></h1>
+        <p>Active Users: <span id="count">Loading...</span></p>
         <p>Make Sure To Join The Discord...</p>
         <p style="margin-top:12px"><strong>Owner's:</strong> Joker • L S D • & Frosty Unknown / Skid Larp.</p>
       </div>
@@ -204,7 +204,7 @@
       el('#refresh-posts').addEventListener('click', loadAndRender);
       loadAndRender();
     });
-    
+
         async function updateCount() {
       try {
         const res = await fetch('/api/track');
