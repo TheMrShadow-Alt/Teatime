@@ -1,17 +1,211 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <title>Active Users</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ratbin</title>
   <style>
-    body { font-family: sans-serif; text-align: center; margin-top: 100px; }
-    h1 { font-size: 40px; }
+    :root {
+      --bg: #000;
+      --accent: #fff;
+      --muted: rgba(255,255,255,0.65);
+      --glass: rgba(255,255,255,0.04);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    * { box-sizing: border-box }
+    html, body { height: 100% }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--accent);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .wrap { max-width: 1100px; margin: 48px auto; padding: 32px }
+    header { display: flex; align-items: center; gap: 18px }
+    .logo {
+      width: 84px; height: 84px; display: grid; place-items: center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border-radius: 14px; border: 1px solid rgba(255,255,255,0.06); padding: 10px
+    }
+    h1 { margin: 0; font-size: 28px; letter-spacing: 1px; color: var(--accent) }
+    .tag { color: var(--muted); font-size: 13px; margin-top: 6px }
+    nav { margin-left: auto; display: flex; gap: 14px; align-items: center }
+    a.btn {
+      color: var(--accent); text-decoration: none;
+      padding: 8px 14px; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: transparent; font-weight: 600; font-size: 14px
+    }
+    .hero {
+      margin-top: 36px; padding: 28px; border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      border: 1px solid rgba(255,255,255,0.03);
+      display: flex; gap: 28px; align-items: center
+    }
+    .hero .left { flex: 1 }
+    .hero h2 { margin: 0; font-size: 22px }
+    .hero p { color: var(--muted); line-height: 1.6 }
+    .card-grid {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px
+    }
+    .card {
+      padding: 18px; border-radius: 10px;
+      background: var(--glass);
+      border: 1px solid rgba(255,255,255,0.02)
+    }
+    footer { margin-top: 40px; color: var(--muted); font-size: 13px }
+    form.post-form { display: flex; flex-direction: column; gap: 8px }
+    input[type=text], textarea {
+      width: 100%; padding: 10px; border-radius: 8px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--accent)
+    }
+    button.primary {
+      padding: 10px 14px; border-radius: 8px;
+      border: none; background: var(--accent); color: var(--bg);
+      font-weight: 700; cursor: pointer
+    }
+    .post { margin-bottom: 12px }
+    .post .meta { font-size: 12px; color: var(--muted) }
+    .btn.small {
+      padding: 6px 8px; border-radius: 6px;
+      font-size: 12px; cursor: pointer
+    }
+    @media (max-width:640px){
+      .logo{width:64px;height:64px}.wrap{padding:20px;margin:22px}
+      header{gap:12px}.hero{flex-direction:column;align-items:flex-start}
+      nav{display:none}
+    }
   </style>
 </head>
 <body>
-  <h1>👥 Active Users: <span id="count">Loading...</span></h1>
+  <div class="wrap">
+    <header>
+      <div class="logo" aria-hidden="true">
+        <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 42 C10 30, 25 20, 45 24 C55 26, 62 32, 59 38 C57 42, 52 46, 46 46 L30 46 C22 48, 18 50, 12 48 C9 47, 6 46, 5 42 Z" fill="white"/>
+          <path d="M59 38 C66 36, 70 28, 60 22" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div><h1>ratbin</h1><div class="tag">N1GG@</div></div>
+      <nav><a class="btn" href="#about">About</a><a class="btn" href="#features">Features</a><a class="btn" href="#contact">Contact</a></nav>
+    </header>
+
+    <section class="hero" id="about">
+      <div class="left">
+        <h2>Welcome to ratbin</h2>
+        <h1>👥 Active Users: <span id="count">Loading...</span></h1>
+        <p>Make Sure To Join The Discord...</p>
+        <p style="margin-top:12px"><strong>Owner's:</strong> Joker • L S D • & Frosty Unknown / Skid Larp.</p>
+      </div>
+      <div style="width:240px; text-align:center">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Web version</div>
+        <div style="padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)">v2.0</div>
+      </div>
+    </section>
+
+    <section class="card-grid" id="features">
+      <div class="card">
+        <h3>Create a post</h3>
+        <form id="post-form" class="post-form">
+          <input id="post-author" type="text" placeholder="your name (optional)" maxlength="64">
+          <textarea id="post-content" placeholder="what's on your mind?" rows="4" maxlength="1000"></textarea>
+          <div style="display:flex;gap:8px">
+            <button id="submit-post" class="primary" type="submit">Post</button>
+            <button id="refresh-posts" class="btn" type="button">Refresh</button>
+          </div>
+        </form>
+      </div>
+      <div class="card" style="grid-column:span 2"><h3>Posts</h3><div id="posts-list"></div></div>
+      <div class="card"><h3>About</h3><p class="muted">This version can run entirely in your browser with no server. Posts are saved, But Can Run On Domain. <code>GoodBye...</code>.</p></div>
+    </section>
+
+    <footer id="contact">
+      <div>ran by 951 and TOA · © ratbin</div>
+      <div style="margin-top:8px;color:var(--muted);font-size:12px">Browser-version.</div>
+    </footer>
+  </div>
 
   <script>
-    async function updateCount() {
+    function el(sel) { return document.querySelector(sel); }
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']+/g, (m) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;',
+        '"': '&quot;', "'": '&#39;'
+      }[m]));
+    }
+
+    function savePosts(posts) {
+      localStorage.setItem('ratbin-posts', JSON.stringify(posts));
+    }
+
+    function loadPosts() {
+      return JSON.parse(localStorage.getItem('ratbin-posts') || '[]');
+    }
+
+    function render(posts) {
+      const c = el('#posts-list');
+      c.innerHTML = '';
+      if (!posts.length) {
+        c.innerHTML = '<div class="card">No posts yet — be the first.</div>';
+        return;
+      }
+      for (const p of posts) {
+        const d = document.createElement('div');
+        d.className = 'card post';
+        d.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+            <div>
+              <strong>${escapeHtml(p.author || 'anonymous')}</strong>
+              <div class="meta">${new Date(p.createdAt).toLocaleString()}</div>
+            </div>
+            <div><button class="btn small" data-id="${p.id}">Delete</button></div>
+          </div>
+          <div style="margin-top:10px;white-space:pre-wrap">${escapeHtml(p.content)}</div>
+        `;
+        c.appendChild(d);
+      }
+      c.querySelectorAll('button[data-id]').forEach(b => b.addEventListener('click', () => {
+        const id = b.getAttribute('data-id');
+        const posts = loadPosts().filter(p => p.id !== id);
+        savePosts(posts);
+        render(posts);
+      }));
+    }
+
+    function loadAndRender() {
+      const posts = loadPosts();
+      posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      render(posts);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      el('#post-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const author = el('#post-author').value.trim() || 'anonymous';
+        const content = el('#post-content').value.trim();
+        if (!content) return alert('Write something first');
+        const posts = loadPosts();
+        posts.push({
+          id: Date.now().toString(36) + Math.random().toString(36).substr(2),
+          author,
+          content,
+          createdAt: new Date().toISOString()
+        });
+        savePosts(posts);
+        el('#post-form').reset();
+        loadAndRender();
+      });
+      el('#refresh-posts').addEventListener('click', loadAndRender);
+      loadAndRender();
+    });
+    
+        async function updateCount() {
       try {
         const res = await fetch('/api/track');
         const data = await res.json();
